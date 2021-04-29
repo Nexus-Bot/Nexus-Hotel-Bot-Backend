@@ -118,7 +118,7 @@ router.delete("/booking/cancellation/:token", async (req, res) => {
 });
 
 // To get info of booking using token
-router.get("/booking/info/:token", async (req, res) => {
+router.get("/booking/info/token/:token", async (req, res) => {
 	const token = req.params.token;
 	try {
 		// If the booking is already cancelled
@@ -133,6 +133,34 @@ router.get("/booking/info/:token", async (req, res) => {
 		delete obj._id;
 		delete obj.__v;
 		obj.token = token;
+		res.status(200).send(obj);
+	} catch (err) {
+		console.log(err);
+		res.status(400).send();
+	}
+});
+
+// To check if there is any booking using userID
+router.get("/booking/info/id/:userId", async (req, res) => {
+	const userId = req.params.userId;
+	try {
+		// If the booking is already cancelled
+		const bookingDoc = await Booking.find({ userID: userId });
+		if (!bookingDoc) {
+			return res
+				.status(400)
+				.send("Currently, there are no bookings with your userId");
+		}
+
+		let obj = [];
+		for (let i = 0; i < bookingDoc.length; i++) {
+			let tempObj = { ...bookingDoc[i] }._doc;
+			tempObj.token = tempObj._id;
+			delete tempObj._id;
+			delete tempObj.__v;
+			obj.push(tempObj);
+		}
+
 		res.status(200).send(obj);
 	} catch (err) {
 		console.log(err);
