@@ -142,7 +142,7 @@ router.get("/booking/info/token/:token", async (req, res) => {
 		res.status(200).send(obj);
 	} catch (err) {
 		console.log(err);
-		res.status(400).send(err);
+		res.status(400).send(err.message);
 	}
 });
 
