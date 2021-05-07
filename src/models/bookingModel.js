@@ -39,14 +39,7 @@ const bookingSchema = new mongoose.Schema({
 	},
 	aadhaarUID: {
 		type: String,
-		minLength: 12,
-		maxLength: 12,
-		validate(value) {
-			for (let i = 0; i < 12; i++) {
-				if (!(value[i] >= "0" && value[i] <= "9"))
-					throw new Error("Invalid Aadhaar Card UID provided");
-			}
-		},
+		required: true,
 	},
 	roomType: {
 		type: String,
