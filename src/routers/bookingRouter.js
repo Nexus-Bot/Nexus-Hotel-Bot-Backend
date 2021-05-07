@@ -96,7 +96,11 @@ router.delete("/booking/cancellation/:token", async (req, res) => {
 
 		// If booking date is today or in past, then can't cancel
 		if (new Date(date) <= new Date()) {
-			return res.status(400).send("You can't cancel booking now");
+			return res
+				.status(400)
+				.send(
+					"You can't cancel booking now, Booking date was in past or it is today"
+				);
 		}
 		await bookingDoc.deleteOne({ _id: token });
 
@@ -110,7 +114,9 @@ router.delete("/booking/cancellation/:token", async (req, res) => {
 			date = nextDate(date);
 		}
 
-		res.status(200).send("Booking cancelled successfully");
+		res.status(200).send(
+			"Booking cancelled successfully. You will get refund in next 3 working days"
+		);
 	} catch (err) {
 		console.log(err);
 		res.status(400).send(err);
