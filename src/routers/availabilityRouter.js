@@ -31,7 +31,7 @@ const emptyDate = () => {
 	};
 };
 
-router.get("/isAvailable", async (req, res) => {
+router.post("/isAvailable", async (req, res) => {
 	let date = req.body.date;
 	if (!validator.isDate(date)) {
 		return res.status(400).send("Invalid Date Provided");
