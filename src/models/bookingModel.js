@@ -55,7 +55,7 @@ const bookingSchema = new mongoose.Schema({
 		required: true,
 		validate(value) {
 			if (!validator.isDate(value)) {
-				throw new Error("Invalid email provided");
+				throw new Error("Invalid date provided");
 			}
 		},
 	},
