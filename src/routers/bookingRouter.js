@@ -34,14 +34,14 @@ router.post("/booking", async (req, res) => {
 			try {
 				await AvailableDoc.save();
 			} catch (err) {
-				res.status(500).send(err.message);
+				res.status(400).send(err.message);
 			}
 
 			dateDoc = AvailableDoc;
 		}
 		if (dateDoc[roomType] < numberOfRooms) {
 			return res
-				.status(500)
+				.status(400)
 				.send(
 					`${numberOfRooms} ${roomType} rooms are not available on ${date}. Kindly check the availability.`
 				);
