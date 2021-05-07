@@ -34,7 +34,7 @@ router.post("/booking", async (req, res) => {
 			try {
 				await AvailableDoc.save();
 			} catch (err) {
-				res.status(500).send();
+				res.status(500).send(err.message);
 			}
 
 			dateDoc = AvailableDoc;
@@ -69,7 +69,7 @@ router.post("/booking", async (req, res) => {
 		});
 	} catch (err) {
 		console.log(err);
-		res.status(400).send();
+		res.status(400).send(err.message);
 	}
 });
 
@@ -119,7 +119,7 @@ router.delete("/booking/cancellation/:token", async (req, res) => {
 		);
 	} catch (err) {
 		console.log(err);
-		res.status(400).send(err);
+		res.status(400).send(err.message);
 	}
 });
 
@@ -142,7 +142,7 @@ router.get("/booking/info/token/:token", async (req, res) => {
 		res.status(200).send(obj);
 	} catch (err) {
 		console.log(err);
-		res.status(400).send();
+		res.status(400).send(err.message);
 	}
 });
 
@@ -170,7 +170,7 @@ router.get("/booking/info/id/:userId", async (req, res) => {
 		res.status(200).send(obj);
 	} catch (err) {
 		console.log(err);
-		res.status(400).send();
+		res.status(400).send(err.message);
 	}
 });
 
